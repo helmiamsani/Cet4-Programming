@@ -5089,12 +5089,12 @@ MonoBehaviour:
   armourIndex: 0
   clothesIndex: 0
   character: {fileID: 0}
-  skinMax: 0
-  hairMax: 0
-  mouthMax: 0
-  eyesMax: 0
-  armourMax: 0
-  clothesMax: 0
+  skinMax: 4
+  hairMax: 5
+  mouthMax: 3
+  eyesMax: 4
+  armourMax: 11
+  clothesMax: 11
   characterName: Adventurer
   charRace: 0
   statArray:

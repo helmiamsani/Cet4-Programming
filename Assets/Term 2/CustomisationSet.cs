@@ -412,9 +412,9 @@ public class CustomisationSet : MonoBehaviour {
         if (GUI.Button(new Rect(5.75f * scrW, scrH + i * (0.5f * scrH), 0.5f * scrW, 0.5f * scrH), ">"))
         {
             selectedIndex++;
-            if (selectedIndex < 0)
+            if (selectedIndex > selectedClass.Length - 1)
             {
-                selectedIndex = selectedClass.Length - 1;
+                selectedIndex = 0;
             }
             ChooseClass(selectedIndex);
         }
