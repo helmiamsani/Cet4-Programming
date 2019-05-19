@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
+  m_IndirectSpecularColor: {r: 0.4465782, g: 0.49641252, b: 0.5748167, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -5089,14 +5089,13 @@ MonoBehaviour:
   armourIndex: 0
   clothesIndex: 0
   character: {fileID: 0}
-  skinMax: 4
-  hairMax: 5
-  mouthMax: 3
-  eyesMax: 4
-  armourMax: 11
-  clothesMax: 11
+  skinMax: 0
+  hairMax: 0
+  mouthMax: 0
+  eyesMax: 0
+  armourMax: 0
+  clothesMax: 0
   characterName: Adventurer
-  charClass: 0
   charRace: 0
   statArray:
   - 
@@ -5105,8 +5104,10 @@ MonoBehaviour:
   - 
   - 
   - 
-  tempStats: 
-  stats: 
+  tempStats: 000000000000000000000000000000000000000000000000
+  stats: 000000000000000000000000000000000000000000000000
+  points: 0
+  charClass: 0
   selectedClass:
   - 
   - 
@@ -5116,7 +5117,6 @@ MonoBehaviour:
   - 
   - 
   - 
-  points: 10
   selectedIndex: 0
 --- !u!1001 &843692905
 PrefabInstance:

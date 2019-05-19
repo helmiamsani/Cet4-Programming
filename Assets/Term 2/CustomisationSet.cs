@@ -29,14 +29,14 @@ public class CustomisationSet : MonoBehaviour {
     //name of our character that the user is making
     public string characterName = "Adventurer";
     [Header("Stats")]
-    public characterClass charClass;
-    public characterRace charRace;
-    public string[] statArray;
-    public int[] tempStats;
-    public int[] stats;
-    public string[] selectedClass;
-    public int points;
-    public int selectedIndex;
+    public CharacterRace charRace;
+    public string[] statArray = new string[6];
+    public int[] tempStats = new int[6];
+    public int[] stats = new int [6];
+    public int points = 0;
+    public CharacterClass charClass;
+    public string[] selectedClass = new string[8];
+    public int selectedIndex = 0;
     #endregion
 
     #region Start
@@ -155,6 +155,7 @@ public class CustomisationSet : MonoBehaviour {
                 textures = hair.ToArray();
                 //material index element number is 4
                 matIndex = 4;
+                //break
                 break;
             case "Mouth":
                 index = mouthIndex;
@@ -181,23 +182,13 @@ public class CustomisationSet : MonoBehaviour {
                 matIndex = 6;
                 break;
         }
-        //break
-        //mouth is 3
-        //index is the same as our index
-        //max is the same as our max
-        //textures is our list .ToArray()
-        //material index element number is 3
-        //break
-        //eyes are 4
-        //index is the same as our index
-        //max is the same as our max
-        //textures is our list .ToArray()
-        //material index element number is 4
-        //break
         #endregion
+
         #region OutSide Switch
+        //index plus equals our direction
         index += dir;
-        if(index < 0)
+        //cap our index to loop back around if is is below 0 or above max take one
+        if (index < 0)
         {
             index = max - 1;
         }
@@ -205,22 +196,25 @@ public class CustomisationSet : MonoBehaviour {
         {
             index = 0;
         }
-        Material[] mat = character.materials;
-        mat[matIndex].mainTexture = textures[index];
-        character.materials = mat;
-        //outside our switch statement
-        //index plus equals our direction
-        //cap our index to loop back around if is is below 0 or above max take one
+
         //Material array is equal to our characters material list
+        Material[] mat = character.materials;
+
         //our material arrays current material index's main texture is equal to our texture arrays current index
+        mat[matIndex].mainTexture = textures[index];
+
         //our characters materials are equal to the material array
-        //create another switch that is goverened by the same string name of our material
+        character.materials = mat;
         #endregion
+
         #region Set Material Switch
         switch (type)
         {
+            //case skin
             case "Skin":
+                //skin index equals our index
                 skinIndex = index;
+                //break
                 break;
             case "Hair":
                 hairIndex = index;
@@ -238,18 +232,6 @@ public class CustomisationSet : MonoBehaviour {
                 armourIndex = index;
                 break;
         }
-        //case skin
-        //skin index equals our index
-        //break
-        //case hair
-        //index equals our index
-        //break
-        //case mouth
-        //index equals our index
-        //break
-        //case eyes
-        //index equals our index
-        //break
         #endregion
     }
     #endregion
@@ -265,24 +247,47 @@ public class CustomisationSet : MonoBehaviour {
     #endregion
 
     #region OnGUI
+    //Function for our GUI elements
     private void OnGUI()
     {
+        //create the floats scrW and scrH that govern our 16:9 ratio
         float scrW = Screen.width / 16;
         float scrH = Screen.height / 9;
 
+        //create an int that will help with shuffling your GUI elements under eachother
         int i = 0;
+
+        #region Character Name and Save & Play
+        //name of our character equals a GUI TextField that holds our character name and limit of characters
+        //move down the screen with the int using ++ each grouping of GUI elements are moved using this
+
+        //GUI Button called Save and Play
+        //this button will run the save function and also load into the game level
+        #endregion
+
+        #region Skin
+        //GUI button on the left of the screen with the contence <
         if (GUI.Button(new Rect(0.25f * scrW, scrH + i * (0.5f * scrH), 0.5f * scrW, 0.5f * scrH), "<"))
         {
+            //when pressed the button will run SetTexture and grab the Skin Material and move the texture index in the direction  -1
             SetTexture("Skin", -1);
         }
 
+        //GUI Box or Lable on the left of the screen with the contence Skin
         GUI.Box(new Rect(0.75f * scrW, scrH + i * (0.5f * scrH), 1f * scrW, 0.5f * scrH), "Skin");
+
+        //GUI button on the left of the screen with the contence >
         if (GUI.Button(new Rect(1.75f * scrW, scrH + i * (0.5f * scrH), 0.5f * scrW, 0.5f * scrH), ">"))
         {
+            //when pressed the button will run SetTexture and grab the Skin Material and move the texture index in the direction  1
             SetTexture("Skin", 1);
         }
-        i++;
 
+        //move down the screen with the int using ++ each grouping of GUI elements are moved using this
+        i++;
+        #endregion
+
+        #region Hair
         if (GUI.Button(new Rect(0.25f * scrW, scrH + i * (0.5f * scrH), 0.5f * scrW, 0.5f * scrH), "<"))
         {
             SetTexture("Hair", -1);
@@ -294,7 +299,9 @@ public class CustomisationSet : MonoBehaviour {
             SetTexture("Hair", 1);
         }
         i++;
+        #endregion
 
+        #region Eyes
         if (GUI.Button(new Rect(0.25f * scrW, scrH + i * (0.5f * scrH), 0.5f * scrW, 0.5f * scrH), "<"))
         {
             SetTexture("Eyes", -1);
@@ -306,7 +313,9 @@ public class CustomisationSet : MonoBehaviour {
             SetTexture("Eyes", 1);
         }
         i++;
-
+        #endregion
+        
+        #region Mouth
         if (GUI.Button(new Rect(0.25f * scrW, scrH + i * (0.5f * scrH), 0.5f * scrW, 0.5f * scrH), "<"))
         {
             SetTexture("Mouth", -1);
@@ -318,7 +327,9 @@ public class CustomisationSet : MonoBehaviour {
             SetTexture("Mouth", 1);
         }
         i++;
+        #endregion
 
+        #region Clothes
         if (GUI.Button(new Rect(0.25f * scrW, scrH + i * (0.5f * scrH), 0.5f * scrW, 0.5f * scrH), "<"))
         {
             SetTexture("Clothes", -1);
@@ -330,7 +341,9 @@ public class CustomisationSet : MonoBehaviour {
             SetTexture("Clothes", 1);
         }
         i++;
+        #endregion
 
+        #region Armour
         if (GUI.Button(new Rect(0.25f * scrW, scrH + i * (0.5f * scrH), 0.5f * scrW, 0.5f * scrH), "<"))
         {
             SetTexture("Amour", -1);
@@ -342,7 +355,11 @@ public class CustomisationSet : MonoBehaviour {
             SetTexture("Armour", 1);
         }
         i++;
+        #endregion
 
+        #region Random Reset
+        //create 2 buttons one Random and one Reset
+        //reset will set all to 0 both use SetTexture
         if (GUI.Button(new Rect(0.25f * scrW, scrH + i * (0.5f * scrH), scrW, 0.5f * scrH), "Reset"))
         {
             SetTexture("Skin", skinIndex = 0);
@@ -352,6 +369,8 @@ public class CustomisationSet : MonoBehaviour {
             SetTexture("Clothes", clothesIndex = 0);
             SetTexture("Armour", armourIndex = 0);
         }
+
+        //Random will feed a random amount to the direction 
         if (GUI.Button(new Rect(1.25f * scrW, scrH + i * (0.5f * scrH), scrW, 0.5f * scrH), "Random"))
         {
             SetTexture("Skin", Random.Range(0, skinMax - 1));
@@ -361,74 +380,150 @@ public class CustomisationSet : MonoBehaviour {
             SetTexture("Clothes", Random.Range(0, clothesMax - 1));
             SetTexture("Armour", Random.Range(0, armourMax - 1));
         }
-    }
-    //Function for our GUI elements
-    //create the floats scrW and scrH that govern our 16:9 ratio
-    //create an int that will help with shuffling your GUI elements under eachother
-    #region Skin
-    //GUI button on the left of the screen with the contence <
-    //when pressed the button will run SetTexture and grab the Skin Material and move the texture index in the direction  -1
-    //GUI Box or Lable on the left of the screen with the contence Skin
-    //GUI button on the left of the screen with the contence >
-    //when pressed the button will run SetTexture and grab the Skin Material and move the texture index in the direction  1
-    //move down the screen with the int using ++ each grouping of GUI elements are moved using this
-    #endregion
-    //set up same things for Hair, Mouth and Eyes
-    #region Hair
-    //GUI button on the left of the screen with the contence <
-    //when pressed the button will run SetTexture and grab the Material and move the texture index in the direction  -1
-    //GUI Box or Lable on the left of the screen with the contence material Name
-    //GUI button on the left of the screen with the contence >
-    //when pressed the button will run SetTexture and grab the  Material and move the texture index in the direction  1
-    //move down the screen with the int using ++ each grouping of GUI elements are moved using this
-    #endregion
-    #region Mouth
-    //GUI button on the left of the screen with the contence <
-    //when pressed the button will run SetTexture and grab the Material and move the texture index in the direction  -1
-    //GUI Box or Lable on the left of the screen with the contence material Name
-    //GUI button on the left of the screen with the contence >
-    //when pressed the button will run SetTexture and grab the  Material and move the texture index in the direction  1
-    //move down the screen with the int using ++ each grouping of GUI elements are moved using this
-    #endregion 
-    #region Eyes
-    //GUI button on the left of the screen with the contence <
-    //when pressed the button will run SetTexture and grab the Material and move the texture index in the direction  -1
-    //GUI Box or Lable on the left of the screen with the contence material Name
-    //GUI button on the left of the screen with the contence >
-    //when pressed the button will run SetTexture and grab the  Material and move the texture index in the direction  1
-    //move down the screen with the int using ++ each grouping of GUI elements are moved using this
-    #endregion
-    #region Random Reset
-    //create 2 buttons one Random and one Reset
-    //Random will feed a random amount to the direction 
-    //reset will set all to 0 both use SetTexture
-    //move down the screen with the int using ++ each grouping of GUI elements are moved using this
-    #endregion
-    #region Character Name and Save & Play
-    //name of our character equals a GUI TextField that holds our character name and limit of characters
-    //move down the screen with the int using ++ each grouping of GUI elements are moved using this
+        //move down the screen with the int using ++ each grouping of GUI elements are moved using this
+        i++;
+        #endregion
 
-    //GUI Button called Save and Play
-    //this button will run the save function and also load into the game level
+        characterName = GUI.TextField(new Rect(0.25f * scrW, scrH + i * (0.5f * scrH), 2 * scrW, 0.5f * scrH), characterName, 16);
+        i++;
+
+        if (GUI.Button(new Rect(0.25f * scrW, scrH + i * (0.5f * scrH), 2 * scrW, 0.5f * scrH), "Save and Play"))
+        {
+            Save();
+            SceneManager.LoadScene(2);
+        }
+        i = 0;
+
+        GUI.Box(new Rect(3.75f * scrW, scrH + i * (0.5f * scrH), 2 * scrW, 0.5f * scrH), "Class");
+        i++;
+
+
+        if (GUI.Button(new Rect(3.25f * scrW, scrH + i * (0.5f * scrH), 0.5f * scrW, 0.5f * scrH), "<"))
+        {
+            selectedIndex--;
+            if(selectedIndex < 0)
+            {
+                selectedIndex = selectedClass.Length - 1;
+            }
+            ChooseClass(selectedIndex);
+        }
+        
+        GUI.Box(new Rect(3.75f * scrW, scrH + i * (0.5f * scrH), 2 * scrW, 0.5f * scrH), selectedClass[selectedIndex]);
+        if (GUI.Button(new Rect(5.75f * scrW, scrH + i * (0.5f * scrH), 0.5f * scrW, 0.5f * scrH), ">"))
+        {
+            selectedIndex++;
+            if (selectedIndex < 0)
+            {
+                selectedIndex = selectedClass.Length - 1;
+            }
+            ChooseClass(selectedIndex);
+        }
+        i++;
+    }
     #endregion
+
+    #region Base Stat
+    void ChooseClass(int className)
+    {
+        switch (className)
+        {
+            case 0:
+                stats[0] = 15; // Strength
+                stats[1] = 10; // Dexternity
+                stats[2] = 10; // Constitution
+                stats[3] = 10; // Wisdom
+                stats[4] = 10; // Intelligence
+                stats[5] = 5;  // Charisma
+                charClass = CharacterClass.Barbarian;
+                break;
+
+            case 1:
+                stats[0] = 5; // Strength
+                stats[1] = 10; // Dexternity
+                stats[2] = 10; // Constitution
+                stats[3] = 10; // Wisdom
+                stats[4] = 10; // Intelligence
+                stats[5] = 15; // Charisma
+                charClass = CharacterClass.Bard;
+                break;
+
+            case 2:
+                stats[0] = 10; // Strength
+                stats[1] = 10; // Dexternity
+                stats[2] = 10; // Constitution
+                stats[3] = 10; // Wisdom
+                stats[4] = 10; // Intelligence
+                stats[5] = 10; // Charisma
+                charClass = CharacterClass.Druid;
+                break;
+
+            case 3:
+                stats[0] = 5; // Strength
+                stats[1] = 15; // Dexternity
+                stats[2] = 15; // Constitution
+                stats[3] = 10; // Wisdom
+                stats[4] = 10; // Intelligence
+                stats[5] = 5; // Charisma
+                charClass = CharacterClass.Monk;
+                break;
+
+            case 4:
+                stats[0] = 15; // Strength
+                stats[1] = 10; // Dexternity
+                stats[2] = 15; // Constitution
+                stats[3] = 5; // Wisdom
+                stats[4] = 5; // Intelligence
+                stats[5] = 10; // Charisma
+                charClass = CharacterClass.Paladin;
+                break;
+
+            case 5:
+                stats[0] = 5; // Strength
+                stats[1] = 15; // Dexternity
+                stats[2] = 10; // Constitution
+                stats[3] = 15; // Wisdom
+                stats[4] = 10; // Intelligence
+                stats[5] = 5; // Charisma
+                charClass = CharacterClass.Ranger;
+                break;
+
+            case 6:
+                stats[0] = 10; // Strength
+                stats[1] = 10; // Dexternity
+                stats[2] = 10; // Constitution
+                stats[3] = 15; // Wisdom
+                stats[4] = 10; // Intelligence
+                stats[5] = 5; // Charisma
+                charClass = CharacterClass.Sorcerer;
+                break;
+
+            case 7:
+                stats[0] = 5; // Strength
+                stats[1] = 5; // Dexternity
+                stats[2] = 5; // Constitution
+                stats[3] = 15; // Wisdom
+                stats[4] = 15; // Intelligence
+                stats[5] = 15; // Charisma
+                charClass = CharacterClass.Warlock;
+                break;
+        }
+    }
     #endregion
 }
 
-public enum characterClass
+public enum CharacterClass
 {
+    Barbarian,
+    Bard,
+    Druid,
     Monk,
     Paladin,
     Ranger,
-    Rogue,
     Sorcerer,
-    Warlock,
-    Wizard,
-    Bard,
-    Barbarian,
-    Druid
+    Warlock
 }
 
-public enum characterRace
+public enum CharacterRace
 {
     Dragonborn,
     Dwarf,
