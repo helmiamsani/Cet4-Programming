@@ -33,7 +33,7 @@ public class CustomisationSet : MonoBehaviour {
     public string[] statArray = new string[6];
     public int[] tempStats = new int[6];
     public int[] stats = new int [6];
-    public int points = 0;
+    public int points = 10;
     public CharacterClass charClass;
     public string[] selectedClass = new string[8];
     public int selectedIndex = 0;
@@ -117,6 +117,8 @@ public class CustomisationSet : MonoBehaviour {
         SetTexture("Clothes", 0);
         SetTexture("Armour", 0);
         #endregion
+
+        ChooseClass(selectedIndex);
     }
     #endregion
 
@@ -418,7 +420,33 @@ public class CustomisationSet : MonoBehaviour {
             }
             ChooseClass(selectedIndex);
         }
-        i++;
+
+        GUI.Box(new Rect(3.75f * scrW, 2f * scrH, 2 * scrW, 0.5f * scrH), "Points: " + points);
+
+        for (int s = 0; s < 6; s++)
+        {
+            if (points > 0)
+            {
+                if (GUI.Button(new Rect(5.75f * scrW, 2.5f * scrH + s * (0.5f * scrH), 0.5f * scrW, 0.5f * scrH), "+"))
+                {
+                    points--;
+                    tempStats[s]++;
+                }
+            }
+
+            GUI.Box(new Rect(3.75f * scrW, 2.5f * scrH + s * (0.5f * scrH), 2f * scrW, 0.5f * scrH), statArray[s] + ": " + (tempStats[s] + stats[s]));
+
+            if (points < 10 && tempStats[s] > 0)
+            {
+                if (GUI.Button(new Rect(3.25f * scrW, 2.5f * scrH + s * (0.5f * scrH), 0.5f * scrW, 0.5f * scrH), "-"))
+                {
+                    points++;
+                    tempStats[s]--;
+                }
+            }
+
+        }
+
     }
     #endregion
 
