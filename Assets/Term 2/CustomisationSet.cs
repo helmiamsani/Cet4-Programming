@@ -16,8 +16,8 @@ public class CustomisationSet : MonoBehaviour {
     public List<Texture2D> clothes = new List<Texture2D>();
     [Header("Index")]
     //index numbers for our current skin, hair, mouth, eyes textures
-    public int skinIndex;
-    public int hairIndex, mouthIndex, eyesIndex, armourIndex, clothesIndex;
+    public int skinIndex;/*0*/
+    public int hairIndex, mouthIndex, eyesIndex, armourIndex, clothesIndex;/*1*/
     [Header("Renderer")]
     //renderer for our character mesh so we can reference a material list
     public Renderer character;
@@ -27,15 +27,16 @@ public class CustomisationSet : MonoBehaviour {
     public int hairMax, mouthMax, eyesMax, armourMax, clothesMax;
     [Header("Character Name")]
     //name of our character that the user is making
-    public string characterName = "Adventurer";
+    public string characterName = "Adventurer"; /*2*/
     [Header("Stats")]
     public CharacterRace charRace;
     public string[] statArray = new string[6];
+    /*3 both the tempStats + stats aka strenght = temp+stats*/
     public int[] tempStats = new int[6];
     public int[] stats = new int [6];
     public int points = 10;
     public CharacterClass charClass;
-    public string[] selectedClass = new string[8];
+    public string[] selectedClass = new string[8];/*4*/
     public int selectedIndex = 0;
     #endregion
 
@@ -239,13 +240,15 @@ public class CustomisationSet : MonoBehaviour {
     #endregion
 
     #region Save
+    //Function called Save this will allow us to save our indexes 
     void Save()
     {
+        //SetInt for SkinIndex, HairIndex, MouthIndex, EyesIndex
 
+        //SetString CharacterName
+        SaveCustomasation.SavePlayerCustomisation(this);
+        Debug.Log("Saved");
     }
-    //Function called Save this will allow us to save our indexes 
-    //SetInt for SkinIndex, HairIndex, MouthIndex, EyesIndex
-    //SetString CharacterName
     #endregion
 
     #region OnGUI
@@ -258,14 +261,6 @@ public class CustomisationSet : MonoBehaviour {
 
         //create an int that will help with shuffling your GUI elements under eachother
         int i = 0;
-
-        #region Character Name and Save & Play
-        //name of our character equals a GUI TextField that holds our character name and limit of characters
-        //move down the screen with the int using ++ each grouping of GUI elements are moved using this
-
-        //GUI Button called Save and Play
-        //this button will run the save function and also load into the game level
-        #endregion
 
         #region Skin
         //GUI button on the left of the screen with the contence <
@@ -386,15 +381,21 @@ public class CustomisationSet : MonoBehaviour {
         i++;
         #endregion
 
+        #region Character Name and Save & Play
+        //name of our character equals a GUI TextField that holds our character name and limit of characters
         characterName = GUI.TextField(new Rect(0.25f * scrW, scrH + i * (0.5f * scrH), 2 * scrW, 0.5f * scrH), characterName, 16);
+        //move down the screen with the int using ++ each grouping of GUI elements are moved using this
         i++;
 
+        //GUI Button called Save and Play
+        //this button will run the save function and also load into the game level
         if (GUI.Button(new Rect(0.25f * scrW, scrH + i * (0.5f * scrH), 2 * scrW, 0.5f * scrH), "Save and Play"))
         {
             Save();
-            SceneManager.LoadScene(2);
+            SceneManager.LoadScene(1);
         }
         i = 0;
+        #endregion
 
         GUI.Box(new Rect(3.75f * scrW, scrH + i * (0.5f * scrH), 2 * scrW, 0.5f * scrH), "Class");
         i++;
