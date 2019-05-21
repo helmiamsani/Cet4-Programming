@@ -7,7 +7,7 @@ public class Item
     //basic variables for items that we need are 
     #region Private Variables
     //Identification Number
-    private int _itemID;
+    private int _ID;
     //Object Name
     private string _itemName;
     //Value of the Object
@@ -19,40 +19,142 @@ public class Item
     //Mesh of that object when it is equipt or in the world
     private GameObject _mesh;
     //Enum ItemType which is the Type of object so we can classify them
+    private ItemType _type;
+    private int _heal;
+    private int _damage;
+    private int _armour;
+    private int _amount;
     #endregion
-    #region Constructors
-    //A constructor is a bit of code that allows you to create objects from a class. You call the constructor by using the keyword new 
-	//followed by the name of the class, followed by any necessary parameters.
-    //the Item needs Identification Number, Object Name, Icon and Type
-        //here we connect the parameters with the item variables
-    #endregion
+
     #region Public Variables
-    //here we are creating the public versions or our private variables that we can reference and connect to when interacting with items
+    //here we are creating the public versions or our private variables that we can reference and connect to when interacting with items    
     //public Identification Number 
-	//get the private Identification Number
+    public int ID
+    {
+        //get the private Identification Number
+        get
+        { return _ID; }
         //and set it to the value of our public Identification Number
+        set
+        { _ID = value; }
+    }
+
     //public Name 
+    public string ItemName
+    {
         //get the private Name
+        get
+        { return _itemName; }
         //and set it to the value of our public Name
+        set
+        { _itemName = value; }
+    }
 
     //public Value 
+    public int Value
+    {
         //get the private Value
+        get
+        { return _value; }
         //and set it to the value of our public Value
+        set
+        { _value = value; } 
+    }
+
     //public Description 
+    public string Description
+    {
         //get the private Description
+        get
+        { return _description; }
         //and set it to the value of our public Description
+        set
+        { _description = value; }
+    }
+
     //public Icon 
+    public Texture2D Icon
+    {
         //get the private Icon
+        get
+        { return _icon; }
         //and set it to the value of our public Icon
+        set
+        { _icon = value; }
+    }
+
     //public Mesh 
+    public GameObject Mesh
+    {
         //get the private Mesh
+        get
+        { return _mesh; }
         //and set it to the value of our public Mesh
+        set
+        { _mesh = value; }
+    }
+
     //public Type 
+    public ItemType Type
+    {
         //get the private Type
+        get
+        { return _type; }
         //and set it to the value of our public Type
+        set
+        { _type = value; }
+    }
+    public int Heal
+    {
+        //get the private Identification Number
+        get
+        { return _heal; }
+        //and set it to the value of our public Identification Number
+        set
+        { _heal = value; }
+    }
+    public int Damage
+    {
+        //get the private Identification Number
+        get
+        { return _damage; }
+        //and set it to the value of our public Identification Number
+        set
+        { _damage = value; }
+    }
+    public int Armour
+    {
+        //get the private Identification Number
+        get
+        { return _armour; }
+        //and set it to the value of our public Identification Number
+        set
+        { _armour = value; }
+    }
+    public int Amount
+    {
+        //get the private Identification Number
+        get
+        { return _amount; }
+        //and set it to the value of our public Identification Number
+        set
+        { _amount = value; }
+    }
     #endregion
 }
 
 #region Enums
 //The Global Enum ItemType that we have created categories in
+public enum ItemType
+{
+    Food,
+    Weapon,
+    Apparel,
+    Crafting,
+    Quest,
+    Money,
+    Ingredient,
+    Potion,
+    Scroll
+}
 #endregion
