@@ -7,11 +7,17 @@ public class Item
     //basic variables for items that we need are 
     #region Private Variables
     //Identification Number
+    private int _itemID;
     //Object Name
+    private string _itemName;
     //Value of the Object
+    private int _value;
     //Description of what the Object is
+    private string _description;
     //Icon that displays when that Object is in an Inventory
+    private Texture2D _icon;
     //Mesh of that object when it is equipt or in the world
+    private GameObject _mesh;
     //Enum ItemType which is the Type of object so we can classify them
     #endregion
     #region Constructors
@@ -46,6 +52,7 @@ public class Item
         //and set it to the value of our public Type
     #endregion
 }
+
 #region Enums
 //The Global Enum ItemType that we have created categories in
 #endregion
