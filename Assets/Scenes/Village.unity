@@ -472,6 +472,7 @@ GameObject:
   m_Component:
   - component: {fileID: 233417795}
   - component: {fileID: 233417794}
+  - component: {fileID: 233417796}
   m_Layer: 0
   m_Name: Load Custom
   m_TagString: Untagged
@@ -492,6 +493,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   character: {fileID: 0}
+  skin: 0
+  hair: 0
+  mouth: 0
+  eyes: 0
+  armour: 0
+  clothes: 0
+  charName: 
 --- !u!4 &233417795
 Transform:
   m_ObjectHideFlags: 0
@@ -506,6 +514,26 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &233417796
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 233417793}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42e3bb1caefc6e44b979f45bd4480e39, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scr: {x: 0, y: 0}
+  scrollPos: {x: 0, y: 0}
+  sortType: []
+  selectedType: 
+  equippedLocations: []
+  dropLocation: {fileID: 0}
+  curWeapon: {fileID: 0}
+  curHelm: {fileID: 0}
 --- !u!1001 &250435239
 PrefabInstance:
   m_ObjectHideFlags: 0
