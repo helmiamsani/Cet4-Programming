@@ -296,13 +296,13 @@ public static class ItemData
 
             default:
                 itemID = 0;
-                name = "Apple";
-                value = 6;
+                name = "Cupcake";
+                value = 2;
                 description = "Munchy and Crunchy";
-                icon = "Food/Apple_icon";
-                mesh = "Food/Apple_Mesh";
+                icon = "Food/Cupcake_icon";
+                mesh = "Food/Cupcake_Mesh";
                 type = ItemType.Food;
-                heal = 5;
+                heal = 3;
                 amount = 1;
                 break;
         }
@@ -317,6 +317,7 @@ public static class ItemData
             Armour = armour,
             Heal = heal,
             Type = type,
+            Amount = amount,
             Mesh = Resources.Load("Prefabs/" + mesh) as GameObject,
             Icon = Resources.Load("Icons/" + icon) as Texture2D
         };

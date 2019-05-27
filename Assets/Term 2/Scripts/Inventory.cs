@@ -24,6 +24,7 @@ public class Inventory : MonoBehaviour
     public Transform dropLocation;
     public GameObject curWeapon;
     public GameObject curHelm;
+    public LinearHealth.LinearHealth health;
 
 
     
@@ -214,6 +215,212 @@ public class Inventory : MonoBehaviour
         }
     }
 
+    void DisplayItem()
+    {
+        switch (selectedItem.Type)
+        {
+            case ItemType.Food:
+                // Box and description of THE FOOOD
+                GUI.Box(new Rect(8 * scr.x, 5 * scr.y, 8 * scr.x, 3 * scr.y), selectedItem.ItemName + "\n" + selectedItem.Description + "\nValue: " + selectedItem.Value + "\nHeal: " + selectedItem.Heal + "\nAmount: " + selectedItem.Amount);
+
+                if (health.curHealth < health.maxHealth)
+                {
+                    if(GUI.Button(new Rect(15 * scr.x, 8.75f * scr.y, scr.x, 0.25f * scr.y), "Eat"))
+                    {
+                        health.curHealth += selectedItem.Heal;
+                        DepleteAmount();
+                    }
+                }
+
+                if(GUI.Button(new Rect(14 * scr.x, 8.75f * scr.y, scr.x, 0.25f * scr.y), "Discard"))
+                {
+                    Discard();
+                }
+                break;
+
+            case ItemType.Weapon:
+                GUI.Box(new Rect(8 * scr.x, 5 * scr.y, 8 * scr.x, 3 * scr.y), selectedItem.ItemName + "\n" + selectedItem.Description + "\nValue: " + selectedItem.Value + "\nDamage: " + selectedItem.Damage + "\nAmount: " + selectedItem.Amount);
+
+                EquipItem(curWeapon, 0);
+
+                if (GUI.Button(new Rect(14 * scr.x, 8.75f * scr.y, scr.x, 0.25f * scr.y), "Discard"))
+                {
+                    Discard();
+                }
+                break;
+
+            case ItemType.Apparel:
+                GUI.Box(new Rect(8 * scr.x, 5 * scr.y, 8 * scr.x, 3 * scr.y), selectedItem.ItemName + "\n" + selectedItem.Description + "\nValue: " + selectedItem.Value + "\nArmour: " + selectedItem.Armour + "\nAmount: " + selectedItem.Amount);
+
+                EquipItem(curHelm, 1);
+
+                if (GUI.Button(new Rect(14 * scr.x, 8.75f * scr.y, scr.x, 0.25f * scr.y), "Discard"))
+                {
+                    Discard();
+                }
+                break;
+
+            case ItemType.Crafting:
+                // Box and description of THE CRAFTING
+                GUI.Box(new Rect(8 * scr.x, 5 * scr.y, 8 * scr.x, 3 * scr.y), selectedItem.ItemName + "\n" + selectedItem.Description + "\nValue: " + selectedItem.Value + "\nAmount: " + selectedItem.Amount);
+
+                if (health.curHealth < health.maxHealth)
+                {
+                    if (GUI.Button(new Rect(15 * scr.x, 8.75f * scr.y, scr.x, 0.25f * scr.y), "Use"))
+                    {
+                        DepleteAmount();
+                    }
+                }
+
+                if (GUI.Button(new Rect(14 * scr.x, 8.75f * scr.y, scr.x, 0.25f * scr.y), "Discard"))
+                {
+                    Discard();
+                }
+                break;
+
+            case ItemType.Quest:
+                break;
+
+            case ItemType.Ingredient:
+                // Box and description of THE INGREDIENTS
+                GUI.Box(new Rect(8 * scr.x, 5 * scr.y, 8 * scr.x, 3 * scr.y), selectedItem.ItemName + "\n" + selectedItem.Description + "\nValue: " + selectedItem.Value + "\nAmount: " + selectedItem.Amount);
+
+                if (health.curHealth < health.maxHealth)
+                {
+                    if (GUI.Button(new Rect(15 * scr.x, 8.75f * scr.y, scr.x, 0.25f * scr.y), "Use"))
+                    {
+                        DepleteAmount();
+                    }
+                }
+
+                if (GUI.Button(new Rect(14 * scr.x, 8.75f * scr.y, scr.x, 0.25f * scr.y), "Discard"))
+                {
+                    Discard();
+                }
+                break;
+
+            case ItemType.Potion:
+                // Box and description of THE POTION
+                GUI.Box(new Rect(8 * scr.x, 5 * scr.y, 8 * scr.x, 3 * scr.y), selectedItem.ItemName + "\n" + selectedItem.Description + "\nValue: " + selectedItem.Value + "\nHeal: " + selectedItem.Heal + "\nAmount: " + selectedItem.Amount);
+
+                if (health.curHealth < health.maxHealth)
+                {
+                    if (GUI.Button(new Rect(15 * scr.x, 8.75f * scr.y, scr.x, 0.25f * scr.y), "Drink"))
+                    {
+                        health.curHealth += selectedItem.Heal;
+                        DepleteAmount();
+                    }
+                }
+
+                if (GUI.Button(new Rect(14 * scr.x, 8.75f * scr.y, scr.x, 0.25f * scr.y), "Discard"))
+                {
+                    Discard();
+                }
+                break;
+
+            case ItemType.Scroll:
+                // Box and description of THE SCROLL
+                GUI.Box(new Rect(8 * scr.x, 5 * scr.y, 8 * scr.x, 3 * scr.y), selectedItem.ItemName + "\n" + selectedItem.Description + "\nValue: " + selectedItem.Value + "\nAmount: " + selectedItem.Amount);
+
+                if (health.curHealth < health.maxHealth)
+                {
+                    if (GUI.Button(new Rect(15 * scr.x, 8.75f * scr.y, scr.x, 0.25f * scr.y), "Read"))
+                    {
+                        DepleteAmount();
+                    }
+                }
+
+                if (GUI.Button(new Rect(14 * scr.x, 8.75f * scr.y, scr.x, 0.25f * scr.y), "Discard"))
+                {
+                    Discard();
+                }
+                break;
+
+            default:
+                break;
+        }
+    }
+
+    void DepleteAmount()
+    {
+        if (selectedItem.Amount > 1)
+        {
+            selectedItem.Amount--;
+        }
+        else
+        {
+            inv.Remove(selectedItem);
+            selectedItem = null;
+        }
+        return;
+    }
+
+    void Discard()
+    {
+        if(selectedItem.Type == ItemType.Weapon)
+        {
+            if(curWeapon != null && selectedItem.Mesh.name == curWeapon.name)
+            {
+                Destroy(curWeapon);
+            }
+        }
+        else if(selectedItem.Type == ItemType.Apparel)
+        {
+            if (curHelm != null && selectedItem.Mesh.name == curHelm.name)
+            {
+                Destroy(curHelm);
+            }
+        }
+        GameObject clone = Instantiate(selectedItem.Mesh, dropLocation.position, Quaternion.identity);
+        clone.AddComponent<Rigidbody>().useGravity = true;
+        if(clone.GetComponent<Collider>() == null)
+        {
+            clone.AddComponent<BoxCollider>();
+        }
+        DepleteAmount();
+    }
+
+    void EquipItem(GameObject item, int location)
+    {
+        if(item == null || selectedItem.Mesh.name != item.name)
+        {
+            if (GUI.Button(new Rect(15f * scr.x, 8.75f * scr.y, scr.x, 0.25f * scr.y), "Equip"))
+            {
+                if (item != null)
+                {
+                    Destroy(item);
+                }
+
+                item = Instantiate(selectedItem.Mesh, equippedLocations[location]);
+
+                if(selectedItem.Type == ItemType.Weapon)
+                {
+                    curWeapon = item;
+                }
+                else if(selectedItem.Type == ItemType.Apparel)
+                {
+                    curHelm = item;
+                }
+
+                if (item.GetComponent<ItemHandler>() != null)
+                {
+                    item.GetComponent<ItemHandler>().enabled = false;
+                }
+                item.name = selectedItem.Mesh.name;
+            }
+        }
+        else
+        {
+            if(item != null && selectedItem.Mesh.name == item.name)
+            {
+                if(GUI.Button(new Rect(15f * scr.x, 8.75f * scr.y, scr.x, 0.25f * scr.y), "UnEquip"))
+                {
+                    Destroy(item);
+                }
+            }
+        }
+    }
+
     void OnGUI()
     {
         if (showInv)
@@ -231,6 +438,8 @@ public class Inventory : MonoBehaviour
             {
                 GUI.DrawTexture(new Rect(11 * scr.x, 1.5f * scr.y, 2 * scr.x, 2 * scr.y), selectedItem.Icon);
             }
+
+            DisplayItem();
         }
     }
 }

@@ -8,6 +8,7 @@ public class Interact : MonoBehaviour
     #region Variables
 
     #endregion
+
     #region Start
     
     //connect our Camera to the mainCam variable via tag
@@ -16,6 +17,7 @@ public class Interact : MonoBehaviour
 
     }
     #endregion
+
     #region Update
     private void Update()
     {
@@ -54,6 +56,11 @@ public class Interact : MonoBehaviour
                 {
                     //Debug that we hit an Item
                     Debug.Log("Item");
+                    ItemHandler handler = hitInfo.transform.GetComponent<ItemHandler>();
+                    if(handler != null)
+                    {
+                        handler.OnCollection();
+                    }
                 }
 
                 #endregion
@@ -61,9 +68,6 @@ public class Interact : MonoBehaviour
 
         }
     }
-
-
-
     #endregion
 }
 
