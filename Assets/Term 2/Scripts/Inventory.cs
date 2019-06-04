@@ -436,10 +436,10 @@ public class Inventory : MonoBehaviour
             DisplayInv(selectedType);
             if(selectedType != null)
             {
+
+                DisplayItem();
                 GUI.DrawTexture(new Rect(11 * scr.x, 1.5f * scr.y, 2 * scr.x, 2 * scr.y), selectedItem.Icon);
             }
-
-            DisplayItem();
         }
     }
 }
